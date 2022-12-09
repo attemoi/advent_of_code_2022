@@ -1,0 +1,36 @@
+{
+  "name": "advent_of_code_2022",
+  "version": "1.0.0",
+  "description": "My solutions for Advent of Code 2022",
+  "main": "index.js",
+  "scripts": {
+    "lint": "prettier --write . && eslint **/*.ts --fix",
+    "test": "jest",
+    "01": "ts-node ./01_calorie_counting/run.ts",
+    "02": "ts-node ./02_rock_paper_scissors/run.ts",
+    "03": "ts-node ./03_rucksack_reorganization/run.ts"
+  },
+  "author": "Atte Moisio",
+  "license": "ISC",
+  "keywords": [
+    "advent of code 2022",
+    "typescript"
+  ],
+  "devDependencies": {
+    "@types/jest": "^29.2.4",
+    "@types/node": "^16.18.6",
+    "@typescript-eslint/eslint-plugin": "^5.45.1",
+    "@typescript-eslint/parser": "^5.45.1",
+    "eslint": "^8.29.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.6.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "jest": "^29.3.1",
+    "prettier": "^2.8.1",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
+}
