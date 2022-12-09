@@ -11,19 +11,27 @@ export function part1(rucksacks: string[]): void {
 export function part2(rucksacks: string[]): void {
   const groupSize = 3;
 
-  let sumOfPriorities = 0;
-  for (let i = 0; i <= rucksacks.length - groupSize; i += groupSize) {
-    const rucksacksForOneGroup = rucksacks.slice(i, i + groupSize);
-    const item = findItemThatExistsInAllRucksacks(rucksacksForOneGroup);
-    if (item !== undefined) {
-      sumOfPriorities += getPriorityForItem(item);
-    }
-  }
+  const sumOfPriorities = splitArrayIntoChunks(rucksacks, groupSize)
+    .map((group) => findItemThatExistsInAllRucksacks(group))
+    .filter(isString)
+    .map((item) => getPriorityForItem(item))
+    .reduce((a, b) => a + b);
 
   console.log(sumOfPriorities);
 }
 
-export function isString(str: string | undefined): str is string {
+export function splitArrayIntoChunks<Type>(input: Type[], chunkSize: number): Type[][] {
+  const inputCopy = [...input];
+  const results: Type[][] = [];
+
+  while (inputCopy.length > 0) {
+    results.push(inputCopy.splice(0, chunkSize));
+  }
+
+  return results;
+}
+
+function isString(str: string | undefined): str is string {
   return str !== undefined;
 }
 
