@@ -9,7 +9,8 @@
     "01": "ts-node ./01_calorie_counting/run.ts",
     "02": "ts-node ./02_rock_paper_scissors/run.ts",
     "03": "ts-node ./03_rucksack_reorganization/run.ts",
-    "04": "ts-node ./04_camp_cleanup/run.ts"
+    "04": "ts-node ./04_camp_cleanup/run.ts",
+    "05": "ts-node ./05_supply_stacks/run.ts"
   },
   "author": "Atte Moisio",
   "license": "ISC",
