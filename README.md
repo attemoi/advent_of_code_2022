@@ -16,6 +16,10 @@ Run all unit tests with:
 
 `npm run test`
 
+Run eslint and prettier with:
+
+`npm run lint`
+
 ## Project structure
 
 The directory for each day contains the following files:
