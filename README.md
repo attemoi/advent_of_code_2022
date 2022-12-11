@@ -33,3 +33,7 @@ The directory for each day contains the following files:
 - `README.md` - problem description
 
 For some days, there are additional `*.ts` files for better code organization.
+
+The `template` directory contains a template for the files for one day.
+
+The `utils` directory contains some utilities used across the project.
