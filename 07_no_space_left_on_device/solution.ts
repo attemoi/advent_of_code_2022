@@ -34,14 +34,14 @@ class Directory extends FileSystemObject {
     return newChildDir;
   }
 
-  flattenChildrenRecursive<Type>(fn: (dir: Directory) => Type): Type[] {
+  flattenDirectoryTree(): Directory[] {
     const childrenFlattened = this.children
       .filter((child): child is Directory => child.isDirectory())
       .flatMap((childDir) => {
-        return childDir.flattenChildrenRecursive(fn);
+        return childDir.flattenDirectoryTree();
       });
 
-    return [fn(this), ...childrenFlattened];
+    return [this, ...childrenFlattened];
   }
 
   getSizeRecursive(): number {
@@ -70,14 +70,6 @@ class File extends FileSystemObject {
 export class FileSystem {
   rootDir = new Directory("/", null);
   currentDir: Directory = this.rootDir;
-
-  flatMapDirectoriesRecursive<Type>(fn: (dir: Directory) => Type): Type[] {
-    return this.rootDir.children
-      .filter((child): child is Directory => child.isDirectory())
-      .flatMap((childDir) => {
-        return fn(childDir);
-      });
-  }
 }
 
 interface Command {
@@ -89,7 +81,8 @@ export function part1(inputLines: string[]): void {
 
   // Find all of the directories with a total size of at most 100_000. What is the sum of the total sizes of those directories?
   const totalSize = fileSystem.rootDir
-    .flattenChildrenRecursive((directory) => directory.getSizeRecursive())
+    .flattenDirectoryTree()
+    .map((directory) => directory.getSizeRecursive())
     .filter((size) => size <= 100_000)
     .reduce((a, b) => a + b);
 
@@ -109,7 +102,8 @@ export function part2(inputLines: string[]): void {
 
   const sizeOfBestCandidate = Math.min(
     ...fileSystem.rootDir
-      .flattenChildrenRecursive((directory) => directory.getSizeRecursive())
+      .flattenDirectoryTree()
+      .map((directory) => directory.getSizeRecursive())
       .filter((size) => size >= needsToBeDeleted)
   );
 
@@ -118,13 +112,9 @@ export function part2(inputLines: string[]): void {
 }
 
 const COMMANDS_BY_NAME: Command = {
-  ls: executeLs,
+  ls: () => {},
   cd: executeCd,
 } as const;
-
-function executeLs(fs: FileSystem, argument: string | undefined): void {
-  // NO-OP
-}
 
 function executeCd(fs: FileSystem, argument: string | undefined): void {
   switch (argument) {
@@ -147,8 +137,8 @@ export function parseFileSystem(inputLines: string[]): FileSystem {
   const fileSystem = new FileSystem();
   inputLines.forEach((line) => {
     if (line.startsWith("$")) {
-      const [name, argument] = line.slice(1).trim().split(" ");
-      COMMANDS_BY_NAME[name](fileSystem, argument);
+      const [commandName, argument] = line.slice(1).trim().split(" ");
+      COMMANDS_BY_NAME[commandName](fileSystem, argument);
     } else if (!line.startsWith("dir")) {
       const [size, name] = line.split(" ");
       fileSystem.currentDir.addFile(new File(name, Number(size)));
