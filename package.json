@@ -13,7 +13,8 @@
     "05": "ts-node ./05_supply_stacks/run.ts",
     "06": "ts-node ./06_tuning_trouble/run.ts",
     "07": "ts-node ./07_no_space_left_on_device/run.ts",
-    "08": "ts-node ./08_treetop_tree_house/run.ts"
+    "08": "ts-node ./08_treetop_tree_house/run.ts",
+    "09": "ts-node ./09_rope_bridge/run.ts"
   },
   "author": "Atte Moisio",
   "license": "ISC",
